@@ -5,21 +5,22 @@ const password = document.getElementById("password");
 const telephone = document.getElementById("telephone");
 const slug = document.getElementById("slug");
 const form = document.querySelector("form");
+const button = form.querySelector("button");
 
+// Regular expressions
 const patterns = {
   username: /^[a-z\d]{5,12}$/i,
-  email: /^[a-z]{2,15}@[a-z]{3,15}\.(se|com)$/,
+  email: /^([a-z\d\.-]+)@([a-z\d-]+)\.([a-z]{2,8})(\.[a-z]{2,8})?$/,
   password: /^[\w@-]{8,20}$/,
-  telephone: /^(0|\+46)7(3|6)(\d){7}$/,
-  slug: /^[a-z\d-]{8,20}$/
+  telephone: /^(0|\+46)\d{9}$/
 };
 
 // Functions
 function validateField(field, regex) {
   if (regex.test(field.value)) {
-    field.className = "valid"
+    field.className = "valid";
   } else {
-    field.className = "invalid"
+    field.className = "invalid";
   }
 }
 
@@ -29,7 +30,7 @@ function checkEmptyField(field) {
   }
 }
 
-// Event listener
+// Event listeners
 form.addEventListener("input", e => {
   let value = e.target.value;
   let id = e.target.id;
@@ -53,10 +54,9 @@ form.addEventListener("input", e => {
     validateField(telephone, patterns[id]);
     checkEmptyField(telephone);
   }
-
-  if (id === "slug") {
-    validateField(slug, patterns[id]);
-    checkEmptyField(slug);
-  }
 });
+
+button.addEventListener("click", e => {
+  e.preventDefault();
+})
 
